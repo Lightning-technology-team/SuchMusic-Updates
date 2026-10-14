@@ -1,12 +1,12 @@
 # SuchMusic-Updates
 
-**SuchMusic 概念版**的安装包与更新清单仓库。
+**SuchMusic 概念版**的更新清单与下载落地页（由 Cloudflare Pages 自本仓库构建部署）。
 
-- `public/latest.apk`：最新安装包（始终指向当前内测版）
-- `public/update.json`：App 内置的「检查更新」读取的清单
+- `public/update.json`：App 内置「检查更新」读取的清单（含 Cloudflare 下载直链）
 - `public/index.html`：下载落地页
 
-本仓库由 [Cloudflare Pages](https://pages.cloudflare.com/) 部署，通过自定义域名
-`dl.lightning-team.de5.net` 对外提供下载（国内访问速度优于 GitHub Releases）。
+## 为什么安装包不放在这里
 
-> 部署：推送 `main` 分支后 Cloudflare Pages 自动构建（构建命令 `exit 0`，输出目录 `public`）。
+Cloudflare Pages 对**单个文件有 25 MiB 上限**，而 APK 约 46 MiB，无法直接托管。
+因此安装包由 Cloudflare **Worker**（`dl.lightning-team.de5.net/latest.apk`）从
+GitHub Releases 边缘代理并缓存，下载仍走 Cloudflare 节点（国内更快）。
