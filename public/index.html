@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Such Music 概念版 · 下载</title>
+<style>
+  :root{--bg:#0f1420;--fg:#eef2f8;--muted:#8b96a8;--accent:#3b82f6}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(1200px 600px at 50% -10%,#1b2740,var(--bg));color:var(--fg);font:16px/1.6 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  .card{width:min(560px,92vw);padding:40px 32px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center}
+  h1{margin:0 0 6px;font-size:28px;letter-spacing:.5px}
+  .ver{color:var(--muted);font-size:14px;margin-bottom:26px}
+  a.btn{display:inline-block;padding:14px 28px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
+  a.btn:hover{filter:brightness(1.1)}
+  .links{margin-top:22px;font-size:13px;color:var(--muted)}
+  .links a{color:var(--accent);text-decoration:none;margin:0 8px}
+  .note{margin-top:26px;font-size:12.5px;color:var(--muted);line-height:1.8}
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>Such Music 概念版</h1>
+    <div class="ver" id="ver">加载中…</div>
+    <a class="btn" href="./latest.apk">下载最新版 APK</a>
+    <div class="links">
+      <a href="./update.json">更新清单 update.json</a>
+    </div>
+    <p class="note">本页由 Cloudflare 全球边缘节点分发，国内访问更快。<br>安装包仅用于个人测试，请勿用于商业用途。</p>
+  </main>
+  <script>
+    fetch('./update.json').then(r=>r.json()).then(d=>{
+      document.getElementById('ver').textContent = 'v' + d.versionName + '（构建号 ' + d.versionCode + '）';
+    }).catch(()=>{document.getElementById('ver').textContent='';});
+  </script>
+</body>
+</html>
