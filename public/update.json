@@ -1,8 +1,8 @@
 {
-  "versionName": "0.10.0",
-  "versionCode": 34,
+  "versionName": "0.11.0",
+  "versionCode": 35,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "0.10.0：本地音乐「打开方式」、音效选择（均衡器预设）、多品牌灵动区域适配、本地个性化推荐「猜你想听」、配置一键导出/导入、歌词搜索选择。"
+  "changelog": "### 修复\n- **「检查更新」以前查的是原作者的仓库（重要修复）**：`UpdateService` 内的更新源\n  一直写死为上游作者的 Gitee / GitHub 地址（其 `update.json` 里 `versionCode=2`），\n  导致本地版本号远大于远端判定值，检查更新永远提示「已是最新版本」，实际早已有新包。\n  现已改为读取**自建的 Cloudflare 分发链路**，并随每次发布自动更新清单。\n\n### 新增\n- **Cloudflare 全球加速分发（国内下载更快）**：\n  - 新增仓库 `Lightning-technology-team/SuchMusic-Updates`：托管更新清单\n    `update.json` 与下载落地页，由 **Cloudflare Pages** 连接该 Git 仓库自动构建。\n  - 自定义域名 **`dl.lightning-team.de5.net`** 由 **Cloudflare Worker** 提供：\n    `/update.json` 返回清单（与 Git 同步），`/latest.apk` 从公开 Release 资源\n    边缘代理并缓存 1 小时，用户侧全程走 Cloudflare 节点。\n  - 说明：Cloudflare Pages 对单个文件有 **25 MiB 上限**，而安装包约 46 MiB，\n    因此安装包由 Worker 代理而非直接放在 Pages 上。\n  - App 端下载链路优先级：**Cloudflare → GitHub**（任一可用即下载成功）。\n- CI 发布 v* 标签时，自动把安装包与更新清单同步到上述分发链路\n  （`scripts/publish_updates.sh`）。"
 }
