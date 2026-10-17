@@ -1,8 +1,8 @@
 {
-  "versionName": "0.14.3",
-  "versionCode": 53,
+  "versionName": "0.14.4",
+  "versionCode": 55,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "> 本版为**小米手环适配正式接入版**：手机端内置小米手环官方 SDK（xms-wearable-lib），\n> 配合手环端快应用（SuchMusic-Band 仓库 v1.0.6+，同包名同签名）即可在手环上控制播放。\n\n### 新增\n- **手环控制**：小米手环 10 端快应用，支持播放/暂停、上下曲、搜索歌曲、播放模式切换、歌词查看；\n  手机端「设置 → 手环」提供连接状态 / SDK 就绪状态 / 快应用安装状态与绑定指引。\n- **下载线路测速择优**：「检查更新」下载前对各线路（Cloudflare / GitHub）并发测速，\n  自动选最快线路；修正下载对话框线路名显示（不再出现与实际不符的写死文案）。\n\n### 修复\n- 手机端绑定指引更正：互联绑定**无需在小米运动健康中授权**（官方 interconnect 文档：\n  前提仅为快应用与手机端 App 包名一致、签名一致）；补充系统授权弹窗与\n  「手机未装App」状态说明。\n- 设备互联授权请求改为异步监听（`requestPermission` 返回 Task，用户确认后回写权限状态）。\n\n---"
+  "changelog": "> 本版修复**手环互联无法建立**（手机端一直显示「连接中」、手环端显示「未连」）。\n\n### 修复\n- **消息监听注册签名错误**：官方 SDK 为 `MessageApi.addListener(nodeId, listener)`，\n  旧实现按 `registerMessageReceivedListener(listener)` 查找 → 方法不存在、注册失败，\n  手机端永远收不到手环的任何一帧。现按官方签名注册，并把 nodeId 发现提前到注册之前。\n- **权限类路径错误**：`Permission` 实际位于 `com.xiaomi.xms.wearable.auth.Permission`，\n  旧代码写成 `...wearable.Permission` → 权限检查从未成功。已修正。\n- **节点 id 取值**：`Node.id` 是公有字段（非 `getId()`），旧实现按方法查找取不到。已改为字段优先。\n- **异步结果处理**：`checkPermission` / `requestPermission` / `isWearAppInstalled` / `sendMessage`\n  返回 `Task`，旧实现同步取 `getResult()` 恒失败。现统一挂 `addOnSuccessListener` /\n  `addOnFailureListener`，失败原因（签名不一致 / 未授权 / 未安装）写入诊断。\n- **Android 13+ 通知权限**：手环授权提示以系统通知呈现，未授予通知权限时用户看不到任何提示。\n  启动时主动请求 `POST_NOTIFICATIONS`。\n- 「手环端快应用」状态不再恒为「未知」：安装查询改为异步缓存刷新。\n\n### 配套\n- 手环端快应用 **v1.0.8**：改为**固定尺寸布局**（不再依赖 `flex:1`，修复文字竖排/按钮挤压），\n  并在未连接时对播放类操作给出 Toast 提示。\n\n---"
 }
