@@ -1,8 +1,8 @@
 {
-  "versionName": "0.14.4",
-  "versionCode": 55,
+  "versionName": "0.14.5",
+  "versionCode": 57,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "> 本版修复**手环互联无法建立**（手机端一直显示「连接中」、手环端显示「未连」）。\n\n### 修复\n- **消息监听注册签名错误**：官方 SDK 为 `MessageApi.addListener(nodeId, listener)`，\n  旧实现按 `registerMessageReceivedListener(listener)` 查找 → 方法不存在、注册失败，\n  手机端永远收不到手环的任何一帧。现按官方签名注册，并把 nodeId 发现提前到注册之前。\n- **权限类路径错误**：`Permission` 实际位于 `com.xiaomi.xms.wearable.auth.Permission`，\n  旧代码写成 `...wearable.Permission` → 权限检查从未成功。已修正。\n- **节点 id 取值**：`Node.id` 是公有字段（非 `getId()`），旧实现按方法查找取不到。已改为字段优先。\n- **异步结果处理**：`checkPermission` / `requestPermission` / `isWearAppInstalled` / `sendMessage`\n  返回 `Task`，旧实现同步取 `getResult()` 恒失败。现统一挂 `addOnSuccessListener` /\n  `addOnFailureListener`，失败原因（签名不一致 / 未授权 / 未安装）写入诊断。\n- **Android 13+ 通知权限**：手环授权提示以系统通知呈现，未授予通知权限时用户看不到任何提示。\n  启动时主动请求 `POST_NOTIFICATIONS`。\n- 「手环端快应用」状态不再恒为「未知」：安装查询改为异步缓存刷新。\n\n### 配套\n- 手环端快应用 **v1.0.8**：改为**固定尺寸布局**（不再依赖 `flex:1`，修复文字竖排/按钮挤压），\n  并在未连接时对播放类操作给出 Toast 提示。\n\n---"
+  "changelog": "### 修复\n- **首页滚动异常（每帧抛出）**：`home_page.dart` 在滚动结束回调里直接读\n  `PageController.page`，长列表重建期间可能挂载多个 position，触发\n  `Bad state: Too many elements`（渲染/手势线每帧异常，页面卡顿）。\n  现改为安全读取（`hasClients` + 唯一 position 判定 + 兜底 null）。\n- **连接诊断可见化**：「设置 → 手环」新增「诊断」卡片，直接展示\n  适配器 / 节点 id / 设备管理权限 / 最近错误，连接失败时无需连电脑看日志。\n\n### 配套\n- 手环端 **v1.0.11**：按钮放大（播放 44 圆形、上一/下一 36 圆形）、圆角统一加大、\n  信息密度下调（控制页去掉 chips，模式改为独立入口），状态文案缩短避免折行。\n\n---"
 }
