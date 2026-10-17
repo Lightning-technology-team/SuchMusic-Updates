@@ -1,8 +1,8 @@
 {
-  "versionName": "0.14.6",
-  "versionCode": 59,
+  "versionName": "0.14.7",
+  "versionCode": 62,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "> 本版针对**下载慢**做体积优化。\n\n### 优化\n- **APK 体积 71.3MB → 31.3MB（-56%）**：仅打包 `arm64-v8a`，去掉真机无用的\n  `x86_64`（21MB）与旧 32 位 `armeabi-v7a`（17MB）。Cloudflare 线路不支持 Range，\n  无法并行分块，因此体积是最直接的提速手段。\n- 下载器支持多连接分块尝试：对支持 `Range/206` 的线路自动并行；当前 Cloudflare Worker\n  返回 200（忽略 Range）时会**立即回退单连接**，不浪费流量。\n\n### 说明\n- 仅支持 64 位 ARM 设备（2018 年后的绝大多数手机，含小米 13）。\n\n---"
+  "changelog": "> 本版重点：**手环连接**（补上 SDK 服务连接监听）、**下载优选加速**、设置与关于页整理。\n\n### 修复\n- **手环连接：补上遗漏的 `ServiceApi.registerServiceConnectionListener`**。\n  `NodeApi.getConnectedNodes()` 依赖 SDK 与小米运动健康的 Binder 服务；服务未就绪时\n  调用失败或返回空列表 —— 这正是「一直连接中 / 手环显示未连」的根因链。\n  现在注册服务连接监听：`onServiceConnected` 立即重新发现节点，`onServiceDisconnected`\n  清理状态并重试。\n- **节点发现改为全异步 + 3 秒重试**：`getConnectedNodes()` 返回 `Task<List<Node>>`，\n  旧实现同步取 `getResult()`（任务未完成时永远拿不到），导致 `start()` 判失败。\n- 诊断信息新增 `nodeCount`（发现了几个节点）与 `discovering`（是否在发现中），\n  可区分「服务没连上」与「拿到节点但注册失败」。\n\n### 优化\n- **下载优选**：候选源扩展为「Cloudflare / GitHub 直连 / 3 个 GitHub 公共加速镜像」，\n  下载前并发测速（128KB 窗口、≤3s）后择优；支持 `Range` 的线路自动 4 路并行，\n  不支持则立即回退单连接。\n- **设置页合并清理入口**：原「清理缓存」与「清除本地推荐数据」两张卡片合并为\n  一项「清理数据」，点开面板内再分两条，避免同组出现两个语义相近的清除操作。\n- **关于页**：加入概念版识别度 —— 顶部字母间距标题、版本号旁的「概念版」徽章、\n  卡片下方一行定位说明；沿用原版流光背景与白色卡片，风格一致不突兀。\n\n### 配套\n- 手环端 **v1.0.15**：改为**黑底 + 白色图标**（对齐小米官方音乐控制卡片的视觉语言），\n  播放/切歌三个按钮一行排布、进度条满宽、信息密度下调。\n\n---"
 }
