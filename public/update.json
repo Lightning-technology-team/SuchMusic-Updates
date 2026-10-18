@@ -1,8 +1,8 @@
 {
-  "versionName": "0.15.1",
-  "versionCode": 65,
+  "versionName": "1.0.0",
+  "versionCode": 69,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": ""
+  "changelog": "> 首个正式版：代码仓库全面开源，签名密钥迁出仓库，关于页可查历代更新日志。\n\n### 新增\n- **更新日志页**（「关于 → 更新日志」）：打包内置完整 CHANGELOG，可展开查看**历代所有版本**，\n  最新版默认展开并标注「当前最新」。\n- **官方社群二选一**：原版 Such 交流群（群号 677063599）/ 二开 闪电科技团队官方交流群（QQ 分享链接直达）。\n\n### 变更\n- 手机端与手环端代码仓库**全部公开**（MIT）。签名 keystore 已从仓库与历史提交中移除，\n  改由 CI Secrets 注入；旧密钥作废并轮换为新密钥。\n- 因签名轮换，本次为**不可覆盖安装**的版本：请先卸载旧版再安装 1.0.0。\n\n### 手环端（1.0.19）\n- 使用与手机端配套的新证书重新签名（互联要求两端签名一致）；\n- 其余与 1.0.18 一致（全黑底、放大排版、内置 A–Z 键盘）。\n\n---"
 }
