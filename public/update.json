@@ -1,8 +1,8 @@
 {
-  "versionName": "1.0.2",
-  "versionCode": 75,
+  "versionName": "1.0.3",
+  "versionCode": 79,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "> 修复本地音乐「能解码但放不出声、时长 00:00」的真正原因。\n\n### 修复\n- **批量播放忽略本地地址**：本地页点歌走的是 `playSongs()`，而该路径**只向在线音源要地址**，\n  从不读 `localUri`。本地曲目拿不到地址 → 播放队列为空 → 直接进入 error 状态，\n  表现为时长 **00:00**、进度条不动。现在本地曲目一律优先使用 `localUri`。\n- 单个本地文件改用 `setFilePath()`（just_audio 的原生文件通道），\n  避免 `file://` 被当作网络流处理。\n- 播放失败不再静默：状态栏会提示具体原因（加载超时 / 无可用地址 / 解码失败）。\n\n### 变更\n- 列表格式标签以**源文件**为准：`.kgm` 固定显示 **KGM**，不再随解密结果变成 FLAC。\n- 扫描时跳过本应用的解密缓存目录与 `.part` 半成品，避免缓存文件混进曲库。\n\n---"
+  "changelog": "> 修复重启后本地歌曲「Connection aborted / (0) Source error」。\n\n### 修复\n- **播放列表不保存本地地址**：`SongModel.toJson()` 从未写入 `localUri`，\n  重启后从 `playlist.json` 恢复的本地曲目只剩歌名与歌手。此时播放器去问在线音源，\n  拿到的是断链 → just_audio 报 `Connection aborted` / `(0) Source error`，界面停在 00:00。\n  现在序列化会带上 `localUri`，并在读取时对**旧数据**做自愈：\n  本地曲目的 ID 形如 `local:file://...`，据此把路径抢救回来。\n- **本地曲目不再回退在线音源**：缺少地址时直接提示「本地文件路径已失效，请重新选择」，\n  不再发起注定失败的在线请求。\n- **按文件头识别加密文件**：扩展名被改过（例如 `.kgm` 被改名成 `.flac`）时，\n  仍能识别出 KGM 并走解密；不再把密文直接交给播放器报 `(0) Source error`。\n\n### 说明\n- 升级后第一次打开，旧播放列表里的本地歌会自动恢复路径；仍失败时重新进入「本地音乐」点一次即可重建条目。\n\n---"
 }
