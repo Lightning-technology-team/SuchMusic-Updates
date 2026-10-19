@@ -1,8 +1,8 @@
 {
-  "versionName": "1.0.4",
-  "versionCode": 81,
+  "versionName": "1.0.5",
+  "versionCode": 83,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "> 针对「文件交给播放器仍报 `(0) Source error`」：增加非标准加密格式的试解与可读性检查。\n\n### 修复\n- **魔数不认识也尝试解密**：部分文件是 KGMA 等变体，或扩展名被改过（`.kgm` → `.flac`）。\n  之前只认两种固定魔数，认不出就直接交给播放器 → `(0) Source error`。\n  现在：文件头不像任何已知音频容器、且 0x10 处的头长字段合法时，先按 KGM 算法试解，\n  解出来的结果再用音频魔数（ID3 / MPEG / fLaC / OggS / WAVE / ftyp）校验，解错不会产出可用文件。\n- **读文件失败给出具体原因**：权限不足（EACCES）提示授予「所有文件访问」，\n  文件已被移动/清理（ENOENT）提示重新扫描，不再把坏路径丢给播放器。\n- **播放异常不再只出现在日志**：批量播放路径补上 try/catch，界面会显示真实异常文本。\n\n---"
+  "changelog": "> 支持识别 `.kgg`，并让格式标签显示**源文件后缀**而不是解密产物。\n\n### 变更\n- **`.kgg` 纳入加密格式**：扫描时与 `.kgm/.kgma/.vpr` 同样处理，播放前先尝试解密；\n  头布局不匹配时给出明确提示「KGG 是酷狗新版加密格式，当前算法无法解开」，\n  不再以 `(0) Source error` 的形式失败。\n- **格式标签以源文件为准**：加密文件显示 `KGM / KGMA / VPR / KGG`，\n  不会再出现「`.kgg` 显示成 FLAC」这种误导（FLAC 是解密产物的格式）。\n\n---"
 }
