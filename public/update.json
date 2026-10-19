@@ -1,8 +1,8 @@
 {
-  "versionName": "1.0.1",
-  "versionCode": 73,
+  "versionName": "1.0.2",
+  "versionCode": 75,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "> 修复本地 `.kgm` 全部解码失败，以及歌手显示 `<unknown>`。\n\n### 修复\n- **KGM 解码全线失败**：`parseHeader` 只读 64 字节头部采样，却用「头部长度必须小于采样长度」校验；\n  真实文件头长通常为 **1024 字节（0x400）**，于是每个文件都在第一步被判为「头部长度字段异常」。\n  现在按**文件实际大小**校验，并新增 0x400 头长的回归用例。\n- **加密文件被当成普通音频播放**：部分 ROM 会把 `.kgm` 收进 MediaStore，\n  旧逻辑只看「是不是系统音频库条目」，于是直接播加密内容 → 时长 00:00、无声音。\n  现在按扩展名识别，取 `DATA` 列拿真实路径并走解密。\n- **解密结果校验**：解出的字节若不是 ID3/MPEG/fLaC/OggS/WAVE/ftyp，直接报错并删除临时文件，\n  不再产出「能播但 00:00」的乱码缓存。\n- **解码失败可见**：异常不再被吞掉，本地页会提示具体原因。\n\n### 变更\n- 歌手占位统一为**未知歌手**（原 `<unknown>` / `未知艺人` / `本地文件`）。\n- 文件名按「歌手 - 歌名」拆分：`周杰伦 - 东风破.kgm` → 歌名「东风破」、歌手「周杰伦」；\n  不再把扩展名带进标题。只在两侧带空格时拆分，`Jay-Z` 不会被误拆。\n\n---"
+  "changelog": "> 修复本地音乐「能解码但放不出声、时长 00:00」的真正原因。\n\n### 修复\n- **批量播放忽略本地地址**：本地页点歌走的是 `playSongs()`，而该路径**只向在线音源要地址**，\n  从不读 `localUri`。本地曲目拿不到地址 → 播放队列为空 → 直接进入 error 状态，\n  表现为时长 **00:00**、进度条不动。现在本地曲目一律优先使用 `localUri`。\n- 单个本地文件改用 `setFilePath()`（just_audio 的原生文件通道），\n  避免 `file://` 被当作网络流处理。\n- 播放失败不再静默：状态栏会提示具体原因（加载超时 / 无可用地址 / 解码失败）。\n\n### 变更\n- 列表格式标签以**源文件**为准：`.kgm` 固定显示 **KGM**，不再随解密结果变成 FLAC。\n- 扫描时跳过本应用的解密缓存目录与 `.part` 半成品，避免缓存文件混进曲库。\n\n---"
 }
