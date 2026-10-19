@@ -1,8 +1,8 @@
 {
-  "versionName": "1.0.6",
-  "versionCode": 85,
+  "versionName": "1.0.7",
+  "versionCode": 95,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "> 修复「`.kgg.flac` / `.kgm.flac` 这类文件点播放就报 `(0) Source error`」。\n\n### 根因\n酷狗会把加密壳套在**真实格式后缀**上，文件名形如 `周杰伦 - 东风破_MQ.kgg.flac`。\n扫描器只取最后一个点后的 `flac`，于是把它当普通 FLAC 直接交给播放器 →\nExoPlayer 打不开密文 → `(0) Source error`，时长永远 `--:--`。\n\n### 修复\n- **识别双重扩展名**：`.kgg.flac`、`.kgm.flac`、`.kgma.mp3` 一律识别为加密文件，\n  并取**加密后缀**作为展示标签（KGG / KGM），不再显示成 FLAC。\n- **多候选头长试解**：KGM / KGMA / VPR / KGG 的容器头并不统一，`0x10` 处的偏移字段\n  未必可信。现在先读前 64KB，按若干候选头长分别试解，谁先解出真实音频魔数（fLaC / ID3 /\n  MPEG / OggS / WAVE / ftyp）就用谁跑全文；全不命中才报错。\n- **播放失败自动兜底**：若播放器对某首「普通格式」曲目报错，会自动按加密文件再解一次，\n  成功则无缝续播——即使文件命名不规则也能救回来。\n- 标题剥掉全部音频/加密后缀：`东风破_MQ.kgg.flac` → **东风破_MQ**。\n\n### 说明\n酷狗部分新版 `.kgg`（容器版本 5）的密钥存放在客户端本地数据库，**不随文件分发**，\n任何纯文件解密都无法还原；这类文件会给出明确失败原因（含头部魔数），而不是静默 00:00。\n\n---"
+  "changelog": "> 修复「魔数是标准 KGM 却解不出」。真正原因是**算法版本**，不是文件命名。\n\n### 根因\n我此前移植的是 KGM **旧版**算法（逐字节掩码，三张 272 字节表）。\n酷狗 Lite 下载的 `.kgg` 用的是**新版**：按 **16 字节块**异或，并且每个块要查一张\n**70 MB 的密钥表**（社区公开的 `kugou_key`）。文件头完全合法，只是算法对不上，\n所以无论怎么试头长、试密钥位置都解不出来。\n\n### 修复\n- **实现新版块算法**：`pk = key[i % 17] ^ maskV2[i % 272]` 派生 272 字节密钥，\n  第 r 块每字节异或 `pk[(r % 17) * 16 + j] ^ pub[r]`，再做 `x ^ ((x & 0x0F) << 4)`。\n- **内置压缩密钥表**：原始 70 MB 只取前 4 MiB（gzip 后 674 KB），可覆盖 64 MB 以内的音频文件。\n- **探测顺序**：新版块算法 → 明文（壳没加密）→ 旧版逐字节（保留兼容老文件）。\n- 错误信息带上已尝试的候选数量与头部偏移，便于定位。\n\n### 验证\n用社区公开的**真实加密样本**做端到端比对：解密结果与官方参考输出\n**逐字节一致**（`test_kugou_kgm.dat` → `test_kugou_kgm_right.dat`，ID3/MP3 4363 字节）。\n另加「分块与整块结果一致」「错密钥不得解出 ID3」两项防假阳性用例。\n\n---"
 }
