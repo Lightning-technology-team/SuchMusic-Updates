@@ -1,8 +1,8 @@
 {
-  "versionName": "1.3.0",
-  "versionCode": 163,
+  "versionName": "1.3.1",
+  "versionCode": 164,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "1.3.0：全站界面按《界面设计规范》重做。统一设计令牌（纸感暖白 + 墨黑 + 钴蓝强调），字号收敛到 28/20/15/12 四档，新增统一组件库；一级导航重整为「首页 / 本地 / 歌单 / 我的」双形态导航；重做搜索、设置、歌单详情、播放页、弹窗与提示；修复歌单加载失败卡死与播放页顶栏文案重叠。"
+  "changelog": "1.3.1：修复本地 .wav 歌曲识别不出来（扫描时只取系统标记为「音乐」的文件，录音与无标签 wav 被漏掉；现已改为收录所有非提示音音频，并在有全部文件权限时补扫）、修复检查更新提示「已是最新」但实际有新版本（1.3.0 与 1.2.5 的版本号相同，客户端判断为无需更新）。"
 }
