@@ -1,8 +1,8 @@
 {
-  "versionName": "1.3.4",
-  "versionCode": 168,
+  "versionName": "1.3.5",
+  "versionCode": 169,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "安装包瘦身 40MB（72MB → 32MB）\n\n上一版我把三套 CPU 架构全打进了同一个包，这次只保留真机用的 arm64。\n下载流量和安装时间都少一半多，功能没有任何变化。\n\n- 本地音乐播放修复（1.3.3 的全部内容）\n- 播放页支持预测性返回手势\n- 首页「私人 FM」大卡改为宽幅横幅"
+  "changelog": "修复提示条被拉伸成盖住半屏的黑色椭圆\n\nToast 容器里多套了一层 Center，又没给固定高度，Center 就把容器撑满了整屏，\n配合圆角渲染成一块黑椭圆。现在改回由文字内容决定尺寸。\n\n补了横屏 / 竖屏 / 长文案三条尺寸回归测试，并且做了反向验证（把 Center 加回去\n测试确实会失败，高度 640）。"
 }
