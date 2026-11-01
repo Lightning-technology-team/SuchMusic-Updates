@@ -1,8 +1,8 @@
 {
-  "versionName": "1.3.2",
-  "versionCode": 166,
+  "versionName": "1.3.3",
+  "versionCode": 167,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "1.3.2：修复本地音乐点歌没反应、一首也放不出来（回查原始条目用错键，每次都查不到直接返回）；修复部分机型 content:// 播放失败（自动回退真实文件路径）；播放页顶栏标题真正居中；竖屏迷你播放条重做；我的页去掉重复的设置入口，登录收成一个弹层并可在网易云/酷狗之间切换；恢复按返回键的页面缩放预览；播放页新增下载、分享、定时关闭、歌曲信息。"
+  "changelog": "1.3.3：修掉本地音乐「(0) Source error」——扫描结果现在会带上真实文件路径，播放按 file:// → content:// 逐条尝试，第一条能用就播；失败会具体告诉你是文件不存在、没权限、还是加密/专有格式，不再只说一句洋文。另外：播放页补上系统预测性返回（返回手势可跟手、可取消），首页私人 FM 大卡在横屏上收成横幅，不再占满半屏。"
 }
