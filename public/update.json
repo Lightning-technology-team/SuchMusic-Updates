@@ -1,8 +1,8 @@
 {
-  "versionName": "1.3.1",
-  "versionCode": 165,
+  "versionName": "1.3.2",
+  "versionCode": 166,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "1.3.1：修复本地 .wav 歌曲识别不出来（扫描时只取系统标记为「音乐」的文件，录音与无标签 wav 被漏掉；现已改为收录所有非提示音音频，并在有全部文件权限时补扫）、修复检查更新提示「已是最新」但实际有新版本（1.3.0 与 1.2.5 的版本号相同，客户端判断为无需更新）。"
+  "changelog": "1.3.2：修复本地音乐点歌没反应、一首也放不出来（回查原始条目用错键，每次都查不到直接返回）；修复部分机型 content:// 播放失败（自动回退真实文件路径）；播放页顶栏标题真正居中；竖屏迷你播放条重做；我的页去掉重复的设置入口，登录收成一个弹层并可在网易云/酷狗之间切换；恢复按返回键的页面缩放预览；播放页新增下载、分享、定时关闭、歌曲信息。"
 }
