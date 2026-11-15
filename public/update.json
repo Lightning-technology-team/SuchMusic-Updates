@@ -1,8 +1,8 @@
 {
-  "versionName": "1.5.2",
-  "versionCode": 174,
+  "versionName": "1.5.3",
+  "versionCode": 175,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "## [1.5.2] - 2026-11-15\n\n### 横屏与竖屏功能对齐\n- 修复横屏断点判定：568×320、800×600 等尺寸此前被误判成竖屏布局，导致底部「下载 / 分享 / 定时 / 更多」被挤出屏幕。\n- 手机横屏主场景（720×480 及 1080p 逻辑高 360~400）补齐歌名下方的当前歌词；点封面可收起为小封面、控件整体上移，再点恢复。\n- 640×360 这类极小横屏优先保住四个动作入口，不显示歌词行。\n\n### 分享接入 Wrensong\n- 播放页「分享」改为直接唤起 Wrensong 分享面板：歌名、歌手·专辑、封面缩略图与可播放直链。\n- 未安装 Wrensong、本地歌曲或唤起失败时自动降级为复制歌曲信息；分享期间按钮显示「分享中」并防连点。\n- 修复缩略图跨应用读取权限，避免「分享成功但封面丢失」。"
+  "changelog": "1.5.3：网页应用可以接入了。开放平台新增 Web 客户端登记，App 侧支持 redirect_uri 回跳 + 强制 PKCE，第三方网页在用户确认后可在本机直接取数（不经过服务器）；公开清单升级 v2（旧版客户端自动回退 v1 不受影响）；loopback 支持 CORS 与 Private Network Access。"
 }
