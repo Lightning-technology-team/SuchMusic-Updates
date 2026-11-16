@@ -1,8 +1,8 @@
 {
-  "versionName": "1.5.4",
-  "versionCode": 176,
+  "versionName": "1.5.5",
+  "versionCode": 177,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "## SuchMusic概念版 1.5.4（176）\n\n### 修复\n- 授权深链不再被当成歌曲播放：`suchmusic://oauth/authorize` 此前会被入站音频逻辑当作音频打开（播放条出现「authorize 正在播放」），授权确认页反而没弹。现在入站音频只接受 `content://` 与 `file://`，原生与 Dart 双层拦截。\n- 冷启动竞态：深链可能先于开放平台清单就绪到达，被误判「未登记」而静默失败。现在未命中时先等清单强制刷新再重查一次（8 秒超时）。\n- 授权失败不再静默：失败原因通过 SnackBar 直接提示（如「授权失败：应用身份校验未通过」）。\n\n### 文档\n- 开放平台《接入文档》扩写为超详细版：新增「网页应用接入」全章（PKCE RFC 7636 含测试向量、回跳片段协议、CORS 与私有网络访问）、唤醒协议参数全表、安全模型与调试指南。"
+  "changelog": "## SuchMusic概念版 1.5.5（177）\n\n### 修复\n- 横屏不再一打开就铺歌词：竖屏是「点封面（卡片）才显示歌词」，横屏此前却把右半屏常驻歌词面板。现在横屏默认只显示播放器 —— 封面、歌名、进度、控制在画面中间收窄排布；点封面才切换成「左小封面 + 右大歌词」，再点一下恢复，与竖屏完全一套语义。"
 }
