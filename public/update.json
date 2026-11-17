@@ -1,8 +1,8 @@
 {
-  "versionName": "1.5.5",
-  "versionCode": 177,
+  "versionName": "1.5.6",
+  "versionCode": 178,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "## SuchMusic概念版 1.5.5（177）\n\n### 修复\n- 横屏不再一打开就铺歌词：竖屏是「点封面（卡片）才显示歌词」，横屏此前却把右半屏常驻歌词面板。现在横屏默认只显示播放器 —— 封面、歌名、进度、控制在画面中间收窄排布；点封面才切换成「左小封面 + 右大歌词」，再点一下恢复，与竖屏完全一套语义。"
+  "changelog": "横屏播放页定型：左边封面 + 歌名 + 进度 + 五个控制，右边常驻多行歌词（当前行高亮、可滚动、点行跳转），底部横跨「下载 / 分享 / 定时 / 更多」四个入口。封面是静态图，点了没有任何反应。\n\n修复：\n· 歌词字体显式指定 MiSans，避免个别设备中文渲染成方块\n· 歌词字号按栏宽自适应，窄横屏不再折行\n· 第三方接口的 song 参数改为可选：不传就用 App 当前播放的歌曲\n· 单次数据交换里某一项失败不再让整次请求失败，其余数据照常返回"
 }
