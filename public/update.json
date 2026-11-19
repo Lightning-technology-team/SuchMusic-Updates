@@ -1,8 +1,8 @@
 {
-  "versionName": "1.5.7",
-  "versionCode": 179,
+  "versionName": "1.5.8",
+  "versionCode": 180,
   "force": false,
   "cf": "https://dl.lightning-team.de5.net/latest.apk",
   "github": "https://github.com/Lightning-technology-team/SuchMusic-Updates/releases/download/apk-latest/SuchMusic-latest.apk",
-  "changelog": "横屏底部四个功能入口改成贴着左栏、只显示图标，不再带「下载 / 分享 / 定时 / 更多」文字。\n\n· 位置：原来这一行横跨整屏，平板横屏时最后两个图标几乎跑到屏幕中间；现在收在左栏下方左对齐，和封面同一侧。\n· 样式：纯图标，点击热区仍是 44×44；读屏（TalkBack）仍会念出各自名称。\n· 下载中：图标位置显示进度环；定时生效时图标变实心并提亮，状态依然看得见。\n\n竖屏不受影响。"
+  "changelog": "横屏底部四个图标改回「在左栏内均分」：和上面的进度条、播放控制处在同一条宽度带上，不再挤在左下角一小撮。仍然只有图标、没有文字。\n\n竖屏不受影响。"
 }
